@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class User extends Model
 {
     use HasFactory;
 
@@ -26,4 +26,9 @@ class Admin extends Model
     protected $hidden = [
         'password'
     ];
+
+    public function rating()
+    {
+    	return $this->hasMany(Rating::class, 'user_id');
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Rating extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class Admin extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'user_id', 'wisata_id', 'comment', 'rating'
     ];
 
     /**
@@ -24,6 +24,16 @@ class Admin extends Model
      * @var array
      */
     protected $hidden = [
-        'password'
+
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function wisata()
+    {
+        return $this->belongsTo(Wisata::class, 'wisata_id');
+    }
 }

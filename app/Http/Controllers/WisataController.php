@@ -1,20 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Wisata;
 use Illuminate\Http\Request;
 
-class DataController extends Controller
+class WisataController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Wisata $wisata, RumusController $rumus)
     {
-        return view('admin.layout.data');
+        $wisatas = $wisata->all();
+        $pembobotan = $rumus->bobot($wisatas);
+        $normaliasasi = $rumus->normaliasai($pembobotan);
+        $rangking = $normaliasasi->sortByDesc('nilai');
+        $wisatas = $rangking;
+        return view('home.layout.wisata', compact('wisatas'))
+            ->with('i', 1);
     }
 
     /**

@@ -1,8 +1,8 @@
-<nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+<nav class="navbar navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
   <div class="container">
     <div class="navbar-translate">
-      <a class="navbar-brand" style="max-width: 40px;">
-        <img class="img-fluid" src="./assets/img/Logo_Kabupaten_Pati.png" alt="logo"></a>
+      <a class="navbar-brand" style="max-width: 30px;">
+        <h4 style="font-weight: bold; font-family: cursive;">GAGEGO</h4></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="sr-only">Toggle navigation</span>
         <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="" target="tooltip" data-toggle="tooltip" data-placement="bottom" title="Data Wisata">
+          <a class="nav-link" href="{{ route('wisata') }}" data-placement="bottom" title="Data Wisata">
             <i class="material-icons">unarchive</i> Wisata
           </a>
         </li>
@@ -40,7 +40,7 @@
           <div class="tab-content text-center">
             <div class="tab-pane active" id="login">
               <h3 class="text-center text-muted font-weight-bold mt-2">Silahkan Masuk</h3>
-              <form class="form" method="POST" action="{{ url('login') }}">
+              <form class="form" method="POST" action="{{ url('admin/login') }}">
                 @csrf
                 <div class="card-body">
                   @if(session('errors'))

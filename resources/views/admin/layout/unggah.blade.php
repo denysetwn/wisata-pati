@@ -5,8 +5,8 @@
   <!--color are available in data-color="purple | azure | green | orange | danger"-->
   <div class="sidebar" data-color="purple" data-background-color="white" data-image="">
     <div class="logo">
-      <a href="dashboard.html" class="simple-text logo-normal">
-        Wisata Pati
+      <a href="" class="simple-text logo-normal">
+        <h4 style="font-weight: bold; font-family: cursive;">GAGEGO</h4>
       </a>
     </div>
     <!-- Sidebar -->
@@ -27,7 +27,11 @@
                 <p class="card-category">Anda hanya bisa menggunggah dalam bentuk file exel (.xlsx).</p>
               </div>
               <div class="card-body">
-                <input type="file" class="dropify" />
+                <form action="{{ route('admin.unggah.wisata') }}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  <input name="file" type="file" class="dropify" />
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
               </div>
             </div>
           </div>

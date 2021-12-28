@@ -5,8 +5,8 @@
   <!--color are available in data-color="purple | azure | green | orange | danger"-->
   <div class="sidebar" data-color="purple" data-background-color="white" data-image="">
     <div class="logo">
-      <a href="dashboard.html" class="simple-text logo-normal">
-        Wisata Pati
+      <a href="" class="simple-text logo-normal">
+      <h4 style="font-weight: bold; font-family: cursive;">GAGEGO</h4>
       </a>
     </div>
     <!-- Sidebar -->
@@ -23,54 +23,38 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header card-header-primary">
-                <h4 class="card-title">DataTable Example</h4>
-                <p class="card-category">This is data table example.</p>
+                <h4 class="card-title">Objek Wisata</h4>
+                <p class="card-category">laman ini memuat pengelolaan data data objek wisata</p>
               </div>
               <div class="card-body table-responsive">
                 <table class="table table-hover" id="dataTable">
                   <thead class="text-primary">
-                    <th>Nomer</th>
+                    <th>No</th>
+                    <th>Foto</th>
                     <th>Nama</th>
-                    <th>Daerah</th>
+                    <th>Alamat</th>
+                    <th>Kontak</th>
+                    <th>Deskripsi</th>
                     <th>Rating</th>
                   </thead>
                   <tbody>
+                    @foreach($wisatas as $key => $w)
                     <tr>
-                      <td>1</td>
-                      <td>Sarkem</td>
-                      <td>Nigeria</td>
+                      <td>{{ $key + 1 }}</td>
+                      <td>{{ $key }} foto</td>
+                      <td>{{ $w->name }}</td>
+                      <td>{{ $w->address }}, {{ $w->village->name }}, {{ $w->village->district->name }}, Pati, Jawa Tengah</td>
+                      <td>{{ $w->contact }}</td>
+                      <td>{{ $w->desc }}</td>
                       <td>
+                        @if($w->rating->count())
                         <i class="material-icons text-warning align-middle">star</i>
                         <span>5</span>
+                        @else "No Rating"
+                        @endif
                       </td>
                     </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Sarkem</td>
-                      <td>Nigeria</td>
-                      <td>
-                        <i class="material-icons text-warning align-middle">star</i>
-                        <span>5</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Sarkem</td>
-                      <td>Nigeria</td>
-                      <td>
-                        <i class="material-icons text-warning align-middle">star</i>
-                        <span>5</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Sarkem</td>
-                      <td>Nigeria</td>
-                      <td>
-                        <i class="material-icons text-warning align-middle">star</i>
-                        <span>5</span>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

@@ -4,8 +4,8 @@
         $('#dataTable').DataTable({
           "ordering": false,
           "aLengthMenu": [
-            [15, 25, 50, 100],
-            [15, 25, 50, 100]
+            [10, 25, 50, 100],
+            [10, 25, 50, 100]
           ],
           "iDisplayLength": 10,
           "language": {

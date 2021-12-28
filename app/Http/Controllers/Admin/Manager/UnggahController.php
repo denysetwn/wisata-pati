@@ -1,23 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin\Manager;
 
 use App\Http\Controllers\Controller;
-use App\Models\Wisata;
+use App\Imports\Unggah;
+use App\Models\Wisata as ModelsWisata;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
-class DashboardController extends Controller
+class UnggahController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Wisata $wisata)
+    public function index()
     {
-        $wisatas = $wisata->all();
-        return view('admin.layout.index', compact('wisatas'));
+        $wisatas = ModelsWisata::all();
+        return view('admin.layout.unggah', compact('wisatas'));
     }
 
     /**
@@ -84,5 +85,19 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function unggah(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|max:10000|mimes:xlsx,csv'
+        ], [
+            'file.required' => 'File belum anda pilih, Silahkan pilih file anda terlebih dahulu!!',
+            'file.mimes' => 'File yang anda pilih harus berformat xlxs',
+            'file.max' => 'File yang anda pilih melebihi batas makasimal 10 Mb!!',
+        ]);
+        $file = $request->file('file');
+        $import = Excel::import(new Unggah, $file);
+        return redirect()->back();
     }
 }

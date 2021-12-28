@@ -1,46 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Manager;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rating;
+use App\Models\Wisata;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
-class AuthController extends Controller
+class DataController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Wisata $wisata)
     {
-        //
-    }
-
-    public function login(Request $request){
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ],[
-            'email.required' => 'email wajib diisi',
-            'password.requlred' => 'password wajib diisi',
-            'email.email' => 'email tidak valid',
-        ]);
-   
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('dashboard')
-                        ->withSuccess('Login Berhasil');
-        }
-  
-        return redirect()->back()->withErrors('login tidak valid');
-    }
-
-    public function logout(){
-        Auth::logout();
-        return Redirect()->route('/');
+        $wisatas = $wisata->all();
+        return view('admin.layout.data', compact('wisatas'));
     }
 
     /**

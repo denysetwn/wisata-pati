@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Village extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class Admin extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'district_id',
     ];
 
     /**
@@ -24,6 +24,16 @@ class Admin extends Model
      * @var array
      */
     protected $hidden = [
-        'password'
+        
     ];
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'district_id');
+    }
+
+    public function wisata()
+    {
+    	return $this->hasMany(Wisata::class, 'village_id');
+    }
 }

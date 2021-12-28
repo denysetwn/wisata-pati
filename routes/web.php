@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\UnggahController;
-use App\Http\Controllers\admin\DataController;
+use App\Http\Controllers\Admin\Manager\UnggahController;
+use App\Http\Controllers\admin\Manager\DataController;
+use App\Http\Controllers\WisataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,20 @@ use App\Http\Controllers\admin\DataController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('/');
-Route::namespace('Admin')->group(function () {
-    Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::get('logout', [AuthController::class, 'Logout'])->name('logout');
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('unggah', [UnggahController::class, 'index'])->name('unggah');
-    Route::get('data', [DataController::class, 'index'])->name('data');
-});
+Route::get('wisata', [WisataController::class, 'index'])->name('wisata');
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::namespace('Auth')->group(function () {
+        Route::get('login', [AuthController::class, 'index'])->name('login');
+        Route::post('login', [AuthController::class, 'login']);
+        Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    });
 
+    Route::namespace('Manager')->middleware(['admin'])->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('unggah', [UnggahController::class, 'index'])->name('unggah');
+        Route::post('unggah/wisata', [UnggahController::class, 'unggah'])->name('unggah.wisata');
+        Route::get('data', [DataController::class, 'index'])->name('data');
+    });
+
+    
+});

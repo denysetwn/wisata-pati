@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+class Kriteria extends Model
 {
-    use HasFactory;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'wisata_id', 'biaya', 'fasilitas', 'jarak', 'keamanan', 'kondisi'
     ];
 
     /**
@@ -24,6 +21,16 @@ class Admin extends Model
      * @var array
      */
     protected $hidden = [
-        'password'
+        
     ];
+
+    public function wisata()
+    {
+        return $this->belongsTo(Wisata::class);
+    }
+
+    public function facility()
+    {
+        return $this->hasOne(Facility::class, 'kriteria_id');
+    }
 }

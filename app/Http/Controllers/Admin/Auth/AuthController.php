@@ -1,23 +1,49 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\Wisata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-class DashboardController extends Controller
+class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Wisata $wisata)
+    public function index()
     {
-        $wisatas = $wisata->all();
-        return view('admin.layout.index', compact('wisatas'));
+        return view('admin.layout.login');
+    }
+
+    public function login(Request $request){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ],[
+            'email.required' => 'email wajib diisi',
+            'password.requlred' => 'password wajib diisi',
+            'email.email' => 'email tidak valid',
+        ]);
+   
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+
+            return redirect()->intended('admin/dashboard')
+                        ->withSuccess('Login Berhasil');
+        }
+  
+        return redirect()->back()->withErrors('login tidak valid');
+    }
+
+    public function logout(){
+        Session::flush();
+        Auth::logout();
+  
+        return Redirect('/');
     }
 
     /**

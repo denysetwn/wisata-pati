@@ -14,8 +14,16 @@ class CreateWisatasTable extends Migration
     public function up()
     {
         Schema::create('wisatas', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->string('name')->nullable();
+            $table->string('village_id')->nullable();
+            $table->string('address')->nullable();
+            $table->string('contact')->nullable();
+            $table->longText('desc')->nullable();
             $table->timestamps();
+
+            $table->foreign('village_id')
+                ->references('id')->on('villages');
         });
     }
 

@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin\Manager;
 
 use App\Http\Controllers\Controller;
 use App\Imports\Unggah;
-use App\Models\Wisata as ModelsWisata;
+use App\Models\District;
+use App\Models\Facility;
+use App\Models\Kriteria;
+use App\Models\Wisata;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -15,10 +18,10 @@ class UnggahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(District $district)
     {
-        $wisatas = ModelsWisata::all();
-        return view('admin.layout.unggah', compact('wisatas'));
+        $districts = $district->all();
+        return view('admin.layout.unggah', compact('districts'));
     }
 
     /**
@@ -37,9 +40,40 @@ class UnggahController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Wisata $wisata, Kriteria $kriteria, Facility $facility)
     {
-        //
+        $w = $wisata->create([
+            'name' => $request->name,
+            'village_id' => $request->village,
+            'address' => $request->address,
+            'contact' => $request->contact,
+            'desc' => $request->desc,
+        ]);
+
+        if (isset($request->foto)) {
+            $w->addMedia($request->file('foto'))->toMediaCollection('fotos');
+        }
+
+        if ($w) {
+            $k = $kriteria->create([
+                'wisata_id' => $w->id,
+                'biaya' => $request->biaya,
+                'fasilitas' => count($request->fasilitas),
+                'jarak' => $request->jarak,
+                'keamanan' => $request->keamanan,
+                'kondisi' => $request->kondisi,
+            ]);
+
+            $facility->create([
+                'kriteria_id' => $k->id,
+                'parkir' => in_array('parkir', $request->fasilitas) ? 1 : null,
+                'masjid' => in_array('masjid', $request->fasilitas) ? 1 : null,
+                'kantin' => in_array('kantin', $request->fasilitas) ? 1 : null,
+                'toilet' => in_array('toilet', $request->fasilitas) ? 1 : null,
+                'wahana' => in_array('wahana', $request->fasilitas) ? 1 : null,
+            ]);  
+        }
+        return redirect()->route('admin.data');
     }
 
     /**

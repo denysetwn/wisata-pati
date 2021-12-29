@@ -9,6 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        // dd(Auth::check());
         return view('home.layout.index');
     }
 }

@@ -50,9 +50,16 @@ class WisataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Wisata $wisata)
     {
-        //
+        return Wisata::join('kriterias', function ($w) {
+            $w->on('wisatas.id', '=', 'kriterias.wisata_id')
+                ->join('facilities', 'kriterias.id', '=', 'facilities.kriteria_id');
+        })->join('villages', function ($w) {
+            $w->on('wisatas.village_id', '=', 'villages.id')
+                ->join('districts', 'villages.district_id', '=', 'districts.id');
+        })->select('villages.*', 'facilities.*', 'kriterias.*', 'wisatas.*')
+            ->where('wisatas.id', $wisata->id)->first()->toArray();
     }
 
     /**

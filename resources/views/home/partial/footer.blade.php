@@ -4,8 +4,8 @@
         <nav class="float-left">
             <ul>
                 <li>
-                    <p>
-                        Deny Setiawan
+                    <p style="font-weight: bold; font-family: cursive;">
+                        GAGEGO
                     </p>
                 </li>
             </ul>
@@ -14,7 +14,7 @@
             &copy;
             <script>
                 document.write(new Date().getFullYear())
-            </script> , Deny Setiawan. All Right Reserved
+            </script> , GAGEGO. All Right Reserved
         </div>
     </div>
 </footer>

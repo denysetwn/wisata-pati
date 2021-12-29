@@ -15,7 +15,7 @@ class Village extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'district_id',
+        'name', 'district_id', 'id'
     ];
 
     /**
@@ -25,6 +25,15 @@ class Village extends Model
      */
     protected $hidden = [
         
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'string',
     ];
 
     public function district()

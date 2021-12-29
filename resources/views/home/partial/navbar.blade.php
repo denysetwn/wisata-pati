@@ -17,11 +17,11 @@
             <i class="material-icons">unarchive</i> Wisata
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" data-toggle="modal" data-target="#loginModal" style="cursor: pointer;">
             <i class="fa fa-sign-in"></i>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
@@ -40,7 +40,7 @@
           <div class="tab-content text-center">
             <div class="tab-pane active" id="login">
               <h3 class="text-center text-muted font-weight-bold mt-2">Silahkan Masuk</h3>
-              <form class="form" method="POST" action="{{ url('admin/login') }}">
+              <form class="form" method="POST" action="{{ route('admin.login') }}">
                 @csrf
                 <div class="card-body">
                   @if(session('errors'))

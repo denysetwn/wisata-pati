@@ -53,24 +53,20 @@
                     <th>Alamat</th>
                     <th>Kontak</th>
                     <th>Deskripsi</th>
-                    <th>Rating</th>
                   </thead>
                   <tbody>
                   @foreach($wisatas->take(4) as $key => $w)
                     <tr>
                       <td>{{ $key + 1 }}</td>
-                      <td>{{ $key }} foto</td>
+                      <td>
+                        @if($w->getFirstMediaUrl('fotos'))
+                        <img src="{{ $w->getFirstMediaUrl('fotos') }}" alt="Foto {{ $w->name }}" class="img-fluid" style="min-width: 80px; max-width: 150px">
+                        @endif
+                      </td>
                       <td>{{ $w->name }}</td>
                       <td>{{ $w->address }}, {{ $w->village->name }}, {{ $w->village->district->name }}, Pati, Jawa Tengah</td>
                       <td>{{ $w->contact }}</td>
                       <td>{{ $w->desc }}</td>
-                      <td>
-                        @if($w->rating->count())
-                        <i class="material-icons text-warning align-middle">star</i>
-                        <span>5</span>
-                        @else "No Rating"
-                        @endif
-                      </td>
                     </tr>
                     @endforeach
                   </tbody>

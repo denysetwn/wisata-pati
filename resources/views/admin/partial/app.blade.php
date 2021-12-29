@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.3/b-2.0.1/b-html5-2.0.1/sc-2.0.5/datatables.min.css" />
     <!-- CSS Files -->
     <link href="../assets/css/material-dashboard.css" rel="stylesheet" />
+    
 </head>
 
 <body>

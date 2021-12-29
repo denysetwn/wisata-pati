@@ -15,7 +15,7 @@ class District extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name', 'id'
     ];
 
     /**
@@ -23,12 +23,19 @@ class District extends Model
      *
      * @var array
      */
-    protected $hidden = [
+    protected $hidden = [];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'string',
     ];
 
     public function village()
     {
-    	return $this->hasMany(District::class, 'village_id');
+        return $this->hasMany(Village::class, 'district_id');
     }
 }

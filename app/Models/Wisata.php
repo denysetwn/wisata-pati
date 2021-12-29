@@ -10,9 +10,6 @@ class Wisata extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $table = 'wisatas';
-    public $timestamps = true;
-
     /**
      * The attributes that are mass assignable.
      *

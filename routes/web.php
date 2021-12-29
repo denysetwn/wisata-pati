@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Manager\UnggahController;
 use App\Http\Controllers\admin\Manager\DataController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\WisataController;
 
 /*
@@ -21,6 +22,7 @@ use App\Http\Controllers\WisataController;
 
 Route::get('/', [HomeController::class, 'index'])->name('/');
 Route::get('wisata', [WisataController::class, 'index'])->name('wisata');
+Route::get('wisata/{wisata}', [WisataController::class, 'show']);
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
     Route::namespace('Auth')->group(function () {
         Route::get('login', [AuthController::class, 'index'])->name('login');
@@ -32,8 +34,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('unggah', [UnggahController::class, 'index'])->name('unggah');
         Route::post('unggah/wisata', [UnggahController::class, 'unggah'])->name('unggah.wisata');
+        Route::post('tambah/wisata', [UnggahController::class, 'store'])->name('tambah.wisata');
         Route::get('data', [DataController::class, 'index'])->name('data');
-    });
-
-    
+        Route::post('edit/wisata', [DataController::class, 'update'])->name('edit.wisata');
+        Route::post('delete/wisata', [DataController::class, 'destroy'])->name('delete.wisata');
+    }); 
 });
+
+Route::get('village/{district}', [LocationController::class, 'village'])->name('village');
+
